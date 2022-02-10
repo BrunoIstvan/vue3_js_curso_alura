@@ -1,24 +1,63 @@
-# vue3-tracker
+# vue3_js_curso_alura
 
-## Project setup
-```
-npm install
-```
+A aplicação será desenvolvida no sistema Ubuntu
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Preparando atualização dos repositórios
 
-### Lints and fixes files
-```
-npm run lint
-```
+    sudo apt-get update
+    sudo apt-get upgrade
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## Instalando o NodeJs
+
+    sudo apt-get install -y nodejs
+
+
+## Instalando o npm
+
+    sudo apt-get install -y npm
+
+
+## Instalando o Vue.js
+
+    sudo npm install -g @vue/cli
+
+
+## Criando o projeto
+
+    vue create vue3-js-curso-alura
+
+
+## Instalando dependências
+    
+    npm install
+    
+
+### Compilando e rodando servidor com hot-reload para desenvolvimento
+
+    npm run serve
+
+
+### Compilando e minificando para produção
+
+    npm run build
+
+
+### Executar os testes unitários
+
+    npm run test:unit
+
+
+### Lints e correções de arquivos
+
+    npm run lint
+
+
+## Estilos
+
+    https://bulma.io/documentation/overview/start/
+
+## Fontawesome
+
+    npm install --save @fontawesome/fontawesome-free

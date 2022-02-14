@@ -26,15 +26,16 @@ export default defineComponent({
     return {
       menus: [
         {
-          text: "Tarefas",
-          icon: "fas fa-tasks",
-          to: "/",
-        },
-        {
           text: "Projetos",
           icon: "fas fa-project-diagram",
           to: "/projects",
         },
+        {
+          text: "Tarefas",
+          icon: "fas fa-tasks",
+          to: "/",
+        },
+        
       ] as IMenuItem[],
     };
   },

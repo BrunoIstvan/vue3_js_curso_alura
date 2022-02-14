@@ -5,11 +5,8 @@
     </div>
 
     <div class="column is-three-quarter content">
-      <FormTask @whenSaveTask="saveTask" />
-      <div class="lista">
-        <TaskItem v-for="(task, index) in tasks" :key="index" :task="task" />
-        <CustomBox v-if="isEmptyList" > Você não está muito produtivo hoje </CustomBox>
-      </div>
+      <Notification></Notification>
+      <router-view></router-view>
     </div>
   </main>
 </template>
@@ -17,45 +14,32 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import SideBar from "./components/SideBar.vue";
-import FormTask from "./components/tasks/FormTask.vue";
-import TaskItem from "./components/tasks/TaskItem.vue";
-import ITask from "./interfaces/ITask";
-import CustomBox from "./components/customs/CustomBox.vue";
+import Notification from './components/customs/Notification.vue';
 
 export default defineComponent({
   name: "App",
   data() {
     return {
-      tasks: [] as ITask[],
       darkModeActive: false,
     };
   },
   components: {
     SideBar,
-    FormTask,
-    TaskItem,
-    CustomBox,
+    Notification
   },
   methods: {
-    saveTask(task: ITask): void {
-      this.tasks.push(task);
-    },
     changeTheme(darkModeActive: boolean) : void {
       this.darkModeActive = darkModeActive;
     }
   },
   computed: {
-    isEmptyList() : boolean {
-      return this.tasks.length === 0;
-    }
+    
   }
 });
 </script>
 
 <style>
-.lista {
-  padding: 1.25rem;
-}
+
 main {
   --bg-primary: #fff;
   --text-primary: #000;

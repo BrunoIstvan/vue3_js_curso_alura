@@ -1,11 +1,14 @@
 <template>
   <CustomBox>
     <div class="columns">
-      <div class="column is-7">
+      <div class="column is-5">
         {{ task.description || "Tarefa sem descrição" }}
       </div>
+      <div class="column is-5">
+        {{ task.project.name }}
+      </div>
       <div class="column">
-        <CustomCron :timeInSeconds="task.timeInSeconds" />
+        <CustomCron :timeInSeconds="task.timeInSeconds" display="normal" />
       </div>
     </div>
   </CustomBox>

@@ -5,12 +5,21 @@
         <img src="../assets/logo.png" alt="" srcset="" />
       </h1>
     </div>
-    <button class="button" @click="changeTheme">{{ textButton }}</button>
+
+    <div class="has-text-centered">
+      <button class="button" @click="changeTheme">{{ textButton }}</button>
+    </div>
+    
+    <MenuSideBar>
+      
+    </MenuSideBar>
+
   </header>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import MenuSideBar from './MenuSideBar.vue'
 
 export default defineComponent({
   name: "SideBar",
@@ -28,7 +37,9 @@ export default defineComponent({
       return 'Ativar modo escuro';
     }
   },
-  components: {},
+  components: {
+    MenuSideBar
+  },
   methods: {
     changeTheme() {
       this.darkModeActive = !this.darkModeActive;
@@ -44,7 +55,7 @@ header {
   background: #0d3b66;
   width: 100%;
   height: 100vh;
-  text-align: center;
+  /* text-align: center; */
 }
 @media only screen and (max-width: 768px) {
   header {
@@ -55,4 +66,6 @@ header {
 .is-horizontal-center {
   justify-content: center;
 }
+
+
 </style>

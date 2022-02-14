@@ -1,6 +1,6 @@
 <template>
   <section>
-    <strong class="display">{{ elapsedTime }}</strong>
+    <strong :class="display">{{ elapsedTime }}</strong>
   </section>
 </template>
 
@@ -12,6 +12,10 @@ export default defineComponent({
       timeInSeconds: {
           type: Number,
           default: 0
+      },
+      display: {
+        type: String,
+        default: 'display'
       }
   },
   computed: {
@@ -25,5 +29,8 @@ export default defineComponent({
 <style scoped>
 .display {
   color: var(--text-primary);
+}
+.normal {
+  color: #000
 }
 </style>

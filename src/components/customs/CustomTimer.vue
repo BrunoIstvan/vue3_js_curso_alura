@@ -2,8 +2,8 @@
   <div class="is-flex is-align-items-center is-justify-content-space-between">
     <CustomCron :timeInSeconds="timeInSeconds" />
 
-    <CustomButton @whenClicked="play" :disable="runningCron" icon="fas fa-play" text="play" />
-    <CustomButton @whenClicked="stop" :disable="!runningCron" icon="fas fa-stop" text="stop" />
+    <CustomButton @whenClicked="play" :disable="runningCron || disableButtons" icon="fas fa-play" text="play" />
+    <CustomButton @whenClicked="stop" :disable="!runningCron || disableButtons" icon="fas fa-stop" text="stop" />
 
   </div>
 </template>
@@ -19,6 +19,12 @@ export default defineComponent({
   components: {
     CustomCron,
     CustomButton
+  },
+  props: {
+    disableButtons: {
+      type: Boolean,
+      default: true
+    }
   },
   data() {
     return {

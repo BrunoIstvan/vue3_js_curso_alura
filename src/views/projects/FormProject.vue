@@ -22,8 +22,8 @@
 import { defineComponent } from "vue";
 import { TypeNotification } from "../../interfaces/INotification";
 import { useStoreX } from "../../store";
-import { UPDATE_PROJECT, ADD_PROJECT } from '../../store/mutations';
-import { notifyMixin } from '../../mixins/notify'
+import { notifyMixin } from "../../mixins/notify";
+import { ADD_PROJECT_API, UPDATE_PROJECT_API } from "../../store/actions";
 
 export default defineComponent({
   name: "FormProject",
@@ -43,24 +43,34 @@ export default defineComponent({
       projectName: "",
     };
   },
-  mixins: [
-    notifyMixin
-  ],
+  mixins: [notifyMixin],
   methods: {
+    onSuccess() {
+      this.projectName = "";
+      this.notify(
+        TypeNotification.SUCCESS,
+        "Parabéns",
+        "Projeto salvo com sucesso"
+      );
+      this.$router.push("/projects");
+    },
     saveProject() {
       if (this.id) {
-        this.store.commit(UPDATE_PROJECT, {
-          id: this.id,
-          name: this.projectName,
-        });
+        this.store
+          .dispatch(UPDATE_PROJECT_API, {
+            id: this.id,
+            name: this.projectName,
+          })
+          .then(() => {
+            this.onSuccess();
+          });
       } else {
-        this.store.commit(ADD_PROJECT, this.projectName);
+        this.store
+          .dispatch(ADD_PROJECT_API, { name: this.projectName })
+          .then(() => {
+            this.onSuccess();
+          });
       }
-      this.projectName = "";
-      
-      this.notify(TypeNotification.SUCCESS, 'Parabéns', 'Projeto salvo com sucesso');
-      
-      this.$router.push("/projects");
     },
   },
   setup() {
@@ -73,10 +83,8 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
 .display {
   color: var(--text-primary);
 }
-
 </style>
 

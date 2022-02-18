@@ -12,6 +12,7 @@
 <script lang="ts">
 import { defineComponent, computed } from "vue";
 import { useStoreX } from "../../store";
+import { LIST_PROJECTS_API } from "../../store/actions";
 
 export default defineComponent({
   name: "SelectProject",
@@ -22,6 +23,9 @@ export default defineComponent({
   },
   setup() {
     const store = useStoreX();
+    if(store.state.projects?.length == 0) {
+      store.dispatch(LIST_PROJECTS_API);
+    }
     return {
       projects: computed(() => store.state.projects),
     };

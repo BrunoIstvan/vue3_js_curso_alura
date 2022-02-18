@@ -31,8 +31,6 @@ import { computed, defineComponent, ref } from "vue";
 import CustomTimer from "../customs/CustomTimer.vue";
 import { useStoreX } from "../../store";
 import SelectProject from "../projects/SelectProject.vue";
-import { TypeNotification } from "../../interfaces/INotification";
-import { notifyMixin } from '../../mixins/notify'
 
 import useNotifier from '../../hooks/notifier';
 
@@ -57,14 +55,10 @@ export default defineComponent({
         project: this.projects.find((p) => p.id == this.projectId),
       });
       this.description = "";
-      this.notify(TypeNotification.SUCCESS, 'Muito bem', 'Task encerrada com sucesso');
       
     },
     
   },
-  mixins: [
-    notifyMixin
-  ],
   setup() {
     const store = useStoreX();
     const projectId = ref("");

@@ -25,7 +25,10 @@
                 <i class="fas fa-pencil-alt"></i>
               </span>
             </router-link>
-            <button class="button ml-2 is-danger" @click="deleteProject(project.id)">
+            <button
+              class="button ml-2 is-danger"
+              @click="deleteProject(project.id)"
+            >
               <span class="icon is-small">
                 <i class="fas fa-trash"></i>
               </span>
@@ -41,10 +44,10 @@
 import { defineComponent, computed } from "vue";
 import { useStoreX } from "../../store";
 import CustomButton from "../../components/customs/CustomButton.vue";
-import { DELETE_PROJECT } from '../../store/mutations';
 
-import useNotifier from '../../hooks/notifier';
+import useNotifier from "../../hooks/notifier";
 import { TypeNotification } from "../../interfaces/INotification";
+import { DELETE_PROJECT_API, LIST_PROJECTS_API } from "../../store/actions";
 
 export default defineComponent({
   name: "ProjectsList",
@@ -56,29 +59,34 @@ export default defineComponent({
       this.$router.push("/projects/new");
     },
     deleteProject(id: string) {
-      this.store.commit(DELETE_PROJECT, id)
-      this.notify(TypeNotification.SUCCESS, 'Sucesso', 'Projeto excluído com sucesso')
-    }
+      this.store.dispatch(DELETE_PROJECT_API, id).then(() => {
+        this.notify(
+          TypeNotification.SUCCESS,
+          "Sucesso",
+          "Projeto excluído com sucesso"
+        );
+      });
+    },
   },
   setup() {
     const store = useStoreX();
 
+    store.dispatch(LIST_PROJECTS_API);
+
     const { notify } = useNotifier();
-    
+
     return {
       projects: computed(() => store.state.projects),
       store,
-      notify
+      notify,
     };
   },
 });
 </script>
 
 <style scoped>
-
 .display-table {
   color: var(--text-primary);
   background: var(--bg-primary);
 }
-
 </style>

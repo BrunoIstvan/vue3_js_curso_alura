@@ -11,7 +11,7 @@ export default defineComponent({
   data() {
       return {
           styleBox: {
-              background: "#faf0ca"
+              background: "rgb(110, 139, 227)"
           }
       }
   }

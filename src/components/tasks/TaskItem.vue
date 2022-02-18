@@ -1,6 +1,6 @@
 <template>
   <CustomBox>
-    <div class="columns">
+    <div class="columns" @click="taskSelected">
       <div class="column is-5">
         {{ task.description || "Tarefa sem descrição" }}
       </div>
@@ -22,9 +22,15 @@ import CustomBox from "../customs/CustomBox.vue";
 
 export default defineComponent({
   name: "TaskItem",
+  emits: ['whenTaskIsSelected'],
   components: {
     CustomCron,
     CustomBox,
+  },
+  methods: {
+    taskSelected(): void {
+      this.$emit('whenTaskIsSelected', this.task);
+    }
   },
   props: {
     task: {

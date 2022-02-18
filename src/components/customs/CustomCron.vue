@@ -1,5 +1,8 @@
 <template>
   <section>
+    <span class="icon">
+      <i class="fas fa-clock"></i>
+    </span>
     <strong :class="display">{{ elapsedTime }}</strong>
   </section>
 </template>

@@ -20,7 +20,10 @@
       </div>
 
       <div class="column">
-        <CustomTimer @whenFinishedTimer="finishTask" :disableButtons="disableButtons" />
+        <CustomTimer
+          @whenFinishedTimer="finishTask"
+          :disableButtons="disableButtons"
+        />
       </div>
     </div>
   </div>
@@ -28,56 +31,50 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref } from "vue";
-import CustomTimer from "../customs/CustomTimer.vue";
-import { useStoreX } from "../../store";
-import SelectProject from "../projects/SelectProject.vue";
-
-import useNotifier from '../../hooks/notifier';
+import CustomTimer from "../../components/customs/CustomTimer.vue";
+import { useStoreX } from "../../../store";
+import SelectProject from "../../components/projects/SelectProject.vue";
 
 export default defineComponent({
   name: "FormTask",
   emits: ["whenSaveTask"],
-  data() {
-    return {
-      description: "",
-    };
-  },
   components: {
     CustomTimer,
     SelectProject,
   },
-  methods: {
-    finishTask(timeInSeconds: number): void {
-
-      this.$emit("whenSaveTask", {
-        timeInSeconds,
-        description: this.description,
-        project: this.projects.find((p) => p.id == this.projectId),
-      });
-      this.description = "";
-      
+  computed: {
+    disableButtons(): boolean {
+      return (
+        this.description == undefined ||
+        this.description == "" ||
+        this.projectId == undefined ||
+        this.projectId == ""
+      );
     },
-    
   },
-  setup() {
+  setup(props, { emit }) {
     const store = useStoreX();
     const projectId = ref("");
+    const description = ref("");
 
-    const { notify } = useNotifier();
+    const projects = computed(() => store.state.project.projects);
+
+    const finishTask = (timeInSeconds: number): void => {
+      emit("whenSaveTask", {
+        timeInSeconds,
+        description: description.value,
+        project: projects.value.find((p) => p.id == projectId.value),
+      });
+      description.value = "";
+    };
 
     return {
-      projects: computed(() => store.state.projects),
+      projects,
       projectId,
-      store,
-      notify
+      description,
+      finishTask,
     };
   },
-  computed: {
-    disableButtons() : boolean {
-      return this.description == undefined || this.description == '' || 
-              this.projectId == undefined || this.projectId == '';
-    }
-  }
 });
 </script>
 

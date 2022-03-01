@@ -22,8 +22,8 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "ModalOkCancel",
-  
-  emits: ['whenCloseModal', 'whenClickOk'],
+  emits: ["whenCloseModal", "whenClickOk"],
+
   props: {
     content: {
       type: String,
@@ -42,18 +42,19 @@ export default defineComponent({
       default: "Cancelar",
     },
     activeModal: {
-        type: Boolean,
-        default: true
-    }
+      type: Boolean,
+      default: true,
+    },
   },
-  methods: {
-    save() {
-      this.$emit('whenClickOk');
-    },
-    close() {
-      console.log("Clicou em fechar");
-      this.$emit('whenCloseModal');
-    },
+  setup(props, { emit }) {
+    const save = () => {
+      emit("whenClickOk");
+    };
+    const close = () => {
+      emit("whenCloseModal");
+    };
+
+    return { save, close };
   },
 });
 </script>

@@ -3,7 +3,7 @@
     <span class="icon">
       <i :class="icon"></i>
     </span>
-    <span>{{ text }}</span>
+    <span v-if="text">{{ text }}</span>
   </button>
 </template>
 
@@ -12,6 +12,7 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "CustomButton",
   emits: ["whenClicked"],
+
   props: {
     disable: {
       type: Boolean,
@@ -25,10 +26,14 @@ export default defineComponent({
       required: true,
     },
   },
-  methods: {
-    whenClicked(): void {
-      this.$emit("whenClicked");
-    },
+  setup(props, { emit }) {
+    const whenClicked = (): void => {
+      emit("whenClicked");
+    };
+
+    return {
+      whenClicked,
+    };
   },
 });
 </script>

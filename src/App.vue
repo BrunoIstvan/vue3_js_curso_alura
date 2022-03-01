@@ -13,8 +13,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import SideBar from "./components/SideBar.vue";
-import Notification from './components/customs/Notification.vue';
+import SideBar from './views/components/SideBar.vue';
+import Notification from './views/components/customs/Notification.vue';
 
 export default defineComponent({
   name: "App",

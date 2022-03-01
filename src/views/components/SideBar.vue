@@ -2,49 +2,49 @@
   <header>
     <div class="card-content is-flex is-horizontal-center">
       <h1>
-        <img src="../assets/logo.png" alt="" srcset="" />
+        <img src="../../assets/logo.png" alt="" srcset="" />
       </h1>
     </div>
 
     <div class="has-text-centered">
       <button class="button" @click="changeTheme">{{ textButton }}</button>
     </div>
-    
-    <MenuSideBar>
-      
-    </MenuSideBar>
 
+    <MenuSideBar> </MenuSideBar>
   </header>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import MenuSideBar from './MenuSideBar.vue'
+import { defineComponent, ref } from "vue";
+import MenuSideBar from "./MenuSideBar.vue";
 
 export default defineComponent({
   name: "SideBar",
   emits: ["whenChangeTheme"],
-  data() {
-    return {
-      darkModeActive: false,
-    };
+
+  components: {
+    MenuSideBar,
   },
   computed: {
-    textButton () {
-      if(this.darkModeActive) {
-        return 'Desativar modo escuro';
-      } 
-      return 'Ativar modo escuro';
-    }
-  },
-  components: {
-    MenuSideBar
-  },
-  methods: {
-    changeTheme() {
-      this.darkModeActive = !this.darkModeActive;
-      this.$emit("whenChangeTheme", this.darkModeActive);
+    textButton() {
+      if (this.darkModeActive) {
+        return "Desativar modo escuro";
+      }
+      return "Ativar modo escuro";
     },
+  },
+  setup(props, { emit }) {
+    const darkModeActive = ref(false);
+
+    const changeTheme = () => {
+      darkModeActive.value = !darkModeActive.value;
+      emit("whenChangeTheme", darkModeActive.value);
+    };
+
+    return {
+      darkModeActive,
+      changeTheme,
+    };
   },
 });
 </script>
@@ -66,6 +66,4 @@ header {
 .is-horizontal-center {
   justify-content: center;
 }
-
-
 </style>

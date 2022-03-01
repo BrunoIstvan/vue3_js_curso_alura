@@ -2,7 +2,7 @@
   "projects": [
     {
       "id": 1,
-      "name": "Project 1"
+      "name": "Processador Vendas Crédito - EEVC"
     },
     {
       "id": 2,
@@ -15,12 +15,32 @@
     {
       "name": "Alura Tracker",
       "id": 4
+    },
+    {
+      "id": 5,
+      "name": "Processador Vendas Débito - EEVD"
+    },
+    {
+      "id": 6,
+      "name": "Migração Starteam para Gitlab"
+    },
+    {
+      "id": 7,
+      "name": "Processador Financeiro - EEFI"
+    },
+    {
+      "name": "Processador Saldo em Aberto - EESA",
+      "id": 8
+    },
+    {
+      "name": "PCI",
+      "id": 9
     }
   ],
   "tasks": [
     {
       "timeInSeconds": 8,
-      "description": "CRIAR CASOS DE TESTES",
+      "description": "Criar casos de testes de cada componente",
       "project": {
         "id": 1,
         "name": "Project 1"
@@ -62,6 +82,60 @@
         "name": "Estudando Vue 3 pela Alura"
       },
       "id": 5
+    },
+    {
+      "timeInSeconds": 3,
+      "description": "NOVA TASK ATUALIZADA",
+      "project": {
+        "id": 2,
+        "name": "Estudando Vue 3 pela Alura"
+      },
+      "id": 6
+    },
+    {
+      "timeInSeconds": 2,
+      "description": "Brasil",
+      "project": {
+        "id": 1,
+        "name": "Project 1"
+      },
+      "id": 7
+    },
+    {
+      "timeInSeconds": 1,
+      "description": "Criar repos",
+      "project": {
+        "id": 6,
+        "name": "Migração Starteam para Gitlab"
+      },
+      "id": 8
+    },
+    {
+      "timeInSeconds": 11,
+      "description": "Cade",
+      "project": {
+        "name": "PCI",
+        "id": 9
+      },
+      "id": 9
+    },
+    {
+      "timeInSeconds": 4,
+      "description": "E agora o que é que eu faço",
+      "project": {
+        "id": 5,
+        "name": "Processador Vendas Débito - EEVD"
+      },
+      "id": 10
+    },
+    {
+      "timeInSeconds": 3,
+      "description": "Criar fluxograma da aplicação",
+      "project": {
+        "id": 7,
+        "name": "Processador Financeiro - EEFI"
+      },
+      "id": 11
     }
   ]
 }

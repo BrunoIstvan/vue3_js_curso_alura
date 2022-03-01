@@ -19,11 +19,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import { TypeNotification } from "../../interfaces/INotification";
 import { useStoreX } from "../../store";
 import { notifyMixin } from "../../mixins/notify";
 import { ADD_PROJECT_API, UPDATE_PROJECT_API } from "../../store/actions";
+import { useRouter } from "vue-router";
+import useNotifier from "../../hooks/notifier";
 
 export default defineComponent({
   name: "FormProject",
@@ -32,51 +34,50 @@ export default defineComponent({
       type: String,
     },
   },
-  mounted() {
-    if (this.id) {
-      const project = this.store.state.projects.find((p) => p.id == this.id);
-      this.projectName = project?.name || "";
-    }
-  },
-  data() {
-    return {
-      projectName: "",
-    };
-  },
   mixins: [notifyMixin],
-  methods: {
-    onSuccess() {
-      this.projectName = "";
-      this.notify(
-        TypeNotification.SUCCESS,
-        "Parabéns",
-        "Projeto salvo com sucesso"
+
+  setup(props) {
+
+    const store = useStoreX();
+    const router = useRouter();
+    const projectName = ref("");
+    const { notify } = useNotifier();
+
+    if (props.id) {
+      const project = store.state.project.projects.find(
+        (p) => p.id == props.id
       );
-      this.$router.push("/projects");
-    },
-    saveProject() {
-      if (this.id) {
-        this.store
+      projectName.value = project?.name || "";
+    }
+
+    const onSuccess = () => {
+      projectName.value = "";
+      notify(TypeNotification.SUCCESS, "Parabéns", "Projeto salvo com sucesso");
+      router.push("/projects");
+    };
+
+    const saveProject = () => {
+      if (props.id) {
+        store
           .dispatch(UPDATE_PROJECT_API, {
-            id: this.id,
-            name: this.projectName,
+            id: props.id,
+            name: projectName.value,
           })
           .then(() => {
-            this.onSuccess();
+            onSuccess();
           });
       } else {
-        this.store
-          .dispatch(ADD_PROJECT_API, { name: this.projectName })
+        store
+          .dispatch(ADD_PROJECT_API, { name: projectName.value })
           .then(() => {
-            this.onSuccess();
+            onSuccess();
           });
       }
-    },
-  },
-  setup() {
-    const store = useStoreX();
+    };
+
     return {
-      store,
+      projectName,
+      saveProject,
     };
   },
 });
@@ -88,3 +89,19 @@ export default defineComponent({
 }
 </style>
 
+
+function useNotifier(): { notify: any; } {
+  throw new Error("Function not implemented.");
+}
+
+function useNotifier(): { notify: any; } {
+  throw new Error("Function not implemented.");
+}
+
+function useRouter() {
+  throw new Error("Function not implemented.");
+}
+
+function useNotifier(): { notify: any; } {
+  throw new Error("Function not implemented.");
+}

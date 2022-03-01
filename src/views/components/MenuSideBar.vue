@@ -15,7 +15,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import MenuItem from "./MenuItem.vue";
-import IMenuItem from "../interfaces/IMenuItem";
+import IMenuItem from "../../interfaces/IMenuItem";
 
 export default defineComponent({
   name: "MenuSideBar",

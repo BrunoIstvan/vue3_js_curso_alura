@@ -6,9 +6,9 @@ type Notifier = {
     notify: (type: TypeNotification, title: string, text: string) => void
 }
 
-export default () : Notifier => {
+export default (): Notifier => {
 
-    const notify = (type: TypeNotification, title: string, text: string) : void => {
+    const notify = (type: TypeNotification, title: string, text: string): void => {
         store.commit(NOTIFY, { type, title, text });
     }
 

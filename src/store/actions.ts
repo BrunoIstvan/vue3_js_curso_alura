@@ -6,5 +6,6 @@ export const DELETE_PROJECT_API = 'DELETE_PROJECT_API';
 export const LIST_TASKS_API = 'LIST_TASKS_API';
 export const FINISH_TASK_API = 'FINISH_TASK_API';
 export const UPDATE_TASK_API = 'UPDATE_TASK_API';
+export const DELETE_TASK_API = 'DELETE_TASK_API';
 
 

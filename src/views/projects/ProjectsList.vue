@@ -2,7 +2,7 @@
   <section>
     <CustomButton
       text="Novo Projeto"
-      :disable="false"
+      disable="false"
       icon="fas fa-plus"
       @whenClicked="goToNewProject"
     />
@@ -43,42 +43,43 @@
 <script lang="ts">
 import { defineComponent, computed } from "vue";
 import { useStoreX } from "../../store";
-import CustomButton from "../../components/customs/CustomButton.vue";
+import CustomButton from "../components/customs/CustomButton.vue";
 
 import useNotifier from "../../hooks/notifier";
 import { TypeNotification } from "../../interfaces/INotification";
 import { DELETE_PROJECT_API, LIST_PROJECTS_API } from "../../store/actions";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "ProjectsList",
   components: {
     CustomButton,
   },
-  methods: {
-    goToNewProject() {
-      this.$router.push("/projects/new");
-    },
-    deleteProject(id: string) {
-      this.store.dispatch(DELETE_PROJECT_API, id).then(() => {
-        this.notify(
+  methods: {},
+  setup() {
+    const store = useStoreX();
+    const router = useRouter();
+    store.dispatch(LIST_PROJECTS_API);
+    const { notify } = useNotifier();
+
+    const goToNewProject = () => {
+      router.push("/projects/new");
+    };
+
+    const deleteProject = (id: string) => {
+      store.dispatch(DELETE_PROJECT_API, id).then(() => {
+        notify(
           TypeNotification.SUCCESS,
           "Sucesso",
           "Projeto excluído com sucesso"
         );
       });
-    },
-  },
-  setup() {
-    const store = useStoreX();
-
-    store.dispatch(LIST_PROJECTS_API);
-
-    const { notify } = useNotifier();
+    };
 
     return {
-      projects: computed(() => store.state.projects),
-      store,
-      notify,
+      projects: computed(() => store.state.project.projects),
+      deleteProject,
+      goToNewProject,
     };
   },
 });

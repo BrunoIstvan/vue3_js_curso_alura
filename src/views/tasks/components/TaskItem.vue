@@ -40,7 +40,7 @@ import CustomBox from "../../components/customs/CustomBox.vue";
 
 export default defineComponent({
   name: "TaskItem",
-  emits: ["whenTaskIsSelected", "whenDeleteTaskIsClicked"],
+  emits: ["whenEditTaskIsClicked", "whenDeleteTaskIsClicked"],
   components: {
     CustomCron,
     CustomBox,
@@ -53,7 +53,7 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const taskSelected = (): void => {
-      emit("whenTaskIsSelected", props.task);
+      emit("whenEditTaskIsClicked", props.task);
     };
 
     const deleteTask = (): void => {

@@ -31,8 +31,15 @@ export const task: Module<TaskState, State> = {
         },
     },
     actions: {
-        [LIST_TASKS_API]({ commit }) {
-            http.get('tasks')
+        [LIST_TASKS_API]({ commit }, filter) {
+
+            let url = 'tasks';
+
+            if(filter){
+                url += '?description=' + filter
+            }
+
+            http.get(url)
                 .then(response => { commit(DEFINE_TASKS, response.data); });
         },
         [FINISH_TASK_API](context, task: ITask) {

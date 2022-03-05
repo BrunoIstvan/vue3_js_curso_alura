@@ -40,7 +40,7 @@
   "tasks": [
     {
       "timeInSeconds": 8,
-      "description": "Criar casos de testes de cada componente",
+      "description": "Criar casos de testes de cada componente 3",
       "project": {
         "id": 1,
         "name": "Project 1"
@@ -136,6 +136,15 @@
         "name": "Processador Financeiro - EEFI"
       },
       "id": 11
+    },
+    {
+      "timeInSeconds": 5,
+      "description": "Eita e vixi",
+      "project": {
+        "id": 7,
+        "name": "Processador Financeiro - EEFI"
+      },
+      "id": 12
     }
   ]
 }

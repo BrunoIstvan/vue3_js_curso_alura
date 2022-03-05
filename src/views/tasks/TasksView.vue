@@ -1,19 +1,34 @@
 <template>
   <div>
     <FormTask @whenSaveTask="saveTask" />
+
     <div class="lista">
+      <div class="field">
+        <p class="control has-icons-left">
+          <input
+            class="input"
+            type="text"
+            placeholder="Digite para filtrar"
+            v-model="filter"
+          />
+          <span class="icon is-small is-left">
+            <i class="fas fa-search"></i>
+          </span>
+        </p>
+      </div>
+
       <TaskItem
         v-for="(task, index) in tasks"
         :key="index"
         :task="task"
-        @whenTaskIsSelected="openModalForEditingTask(task)"
+        @whenEditTaskIsClicked="openModalForEditingTask(task)"
         @whenDeleteTaskIsClicked="openModalForDeletingTask(task)"
       />
       <CustomBox v-if="isEmptyList">
         Você não está muito produtivo hoje
       </CustomBox>
     </div>
-    <ModalOkCancel
+    <CustomModal
       okText="Salvar"
       title="Alterar tarefa"
       cancelText="Cancelar"
@@ -35,8 +50,8 @@
           v-model="selectedTaskForEditing.description"
         />
       </div>
-    </ModalOkCancel>
-    <ModalOkCancel
+    </CustomModal>
+    <CustomModal
       okText="Excluir"
       title="Excluir tarefa"
       cancelText="Cancelar"
@@ -50,17 +65,17 @@
           `Confirma a exclusão da Tarefa ${selectedTaskForDeleting.description}?`
         }}
       </div>
-    </ModalOkCancel>
+    </CustomModal>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from "vue";
+import { computed, defineComponent, ref, watchEffect } from "vue";
 import FormTask from "./components/FormTask.vue";
 import TaskItem from "./components/TaskItem.vue";
 import ITask from "../../interfaces/ITask";
 import CustomBox from "../components/customs/CustomBox.vue";
-import ModalOkCancel from "../components/ModalOkCancel.vue";
+import CustomModal from "../components/CustomModal.vue";
 import { useStoreX } from "../../store";
 import {
   DELETE_TASK_API,
@@ -80,7 +95,7 @@ export default defineComponent({
     FormTask,
     TaskItem,
     CustomBox,
-    ModalOkCancel,
+    CustomModal,
   },
   computed: {
     isEmptyList(): boolean {
@@ -96,6 +111,7 @@ export default defineComponent({
 
     const selectedTaskForEditing = ref<ITask>();
     const selectedTaskForDeleting = ref<ITask>();
+    const filter = ref("");
 
     const saveTask = (task: ITask): void => {
       store.dispatch(FINISH_TASK_API, task).then(() => {
@@ -109,6 +125,7 @@ export default defineComponent({
 
     const openModalForEditingTask = (task: ITask): void => {
       selectedTaskForEditing.value = { ...task };
+      console.log(selectedTaskForEditing.value);
     };
 
     const closeModalUpdating = (): void => {
@@ -153,6 +170,10 @@ export default defineComponent({
       }
     };
 
+    watchEffect(() => {
+      store.dispatch(LIST_TASKS_API, filter.value);
+    });
+
     return {
       store,
       selectedTaskForEditing,
@@ -167,6 +188,7 @@ export default defineComponent({
       closeModalDeleting,
       deleteTask,
 
+      filter,
       tasks: computed(() => {
         return store.state.task.tasks;
       }),

@@ -21,7 +21,7 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "ModalOkCancel",
+  name: "CustomModal",
   emits: ["whenCloseModal", "whenClickOk"],
 
   props: {

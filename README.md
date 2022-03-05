@@ -1,6 +1,6 @@
 # vue3_js_curso_alura
 
-A aplicação será desenvolvida no sistema Ubuntu
+A aplicação foi desenvolvida no sistema Ubuntu
 
 
 ## Preparando atualização dos repositórios
@@ -61,3 +61,14 @@ A aplicação será desenvolvida no sistema Ubuntu
 ## Fontawesome
 
     npm install --save @fontawesome/fontawesome-free
+
+
+## Instalando o json-server
+
+    sudo npm install -g json-server
+    
+
+Para rodar o json-server, digite em um novo terminal:
+
+    json-server --watch db.json
+

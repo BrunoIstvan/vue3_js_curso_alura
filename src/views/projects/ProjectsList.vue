@@ -2,7 +2,7 @@
   <section>
     <CustomButton
       text="Novo Projeto"
-      disable="false"
+      :disable="false"
       icon="fas fa-plus"
       @whenClicked="goToNewProject"
     />

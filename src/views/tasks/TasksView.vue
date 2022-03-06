@@ -125,7 +125,6 @@ export default defineComponent({
 
     const openModalForEditingTask = (task: ITask): void => {
       selectedTaskForEditing.value = { ...task };
-      console.log(selectedTaskForEditing.value);
     };
 
     const closeModalUpdating = (): void => {

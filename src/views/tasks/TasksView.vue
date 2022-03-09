@@ -17,6 +17,8 @@
         </p>
       </div>
 
+      <progress v-if="isEmptyList" class="progress is-small is-primary" max="100">15%</progress>
+
       <TaskItem
         v-for="(task, index) in tasks"
         :key="index"
@@ -24,10 +26,12 @@
         @whenEditTaskIsClicked="openModalForEditingTask(task)"
         @whenDeleteTaskIsClicked="openModalForDeletingTask(task)"
       />
+
       <CustomBox v-if="isEmptyList">
         Você não está muito produtivo hoje
       </CustomBox>
     </div>
+
     <CustomModal
       okText="Salvar"
       title="Alterar tarefa"
@@ -51,6 +55,7 @@
         />
       </div>
     </CustomModal>
+    
     <CustomModal
       okText="Excluir"
       title="Excluir tarefa"
@@ -75,7 +80,7 @@ import FormTask from "./components/FormTask.vue";
 import TaskItem from "./components/TaskItem.vue";
 import ITask from "../../interfaces/ITask";
 import CustomBox from "../components/customs/CustomBox.vue";
-import CustomModal from "../components/CustomModal.vue";
+import CustomModal from "../components/customs/CustomModal.vue";
 import { useStoreX } from "../../store";
 import {
   DELETE_TASK_API,
